@@ -1,1 +1,9 @@
-/target/
+#Maven
+target/
+#User-Specific (James)
+.idea
+*.iml
+#User-Specific (Kalin)
+.settings
+.project
+.classpath
