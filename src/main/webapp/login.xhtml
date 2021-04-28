@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet name="css/primeflex/primeflex.css" />
+</h:head>
+<h:body>
+	<h:form>
+		<div class="p-grid p-justify-center">
+			<div class="p-col-3">
+				<p:outputLabel value="Email" />
+				<p:inputText id="email" value="#{loginBean.email}" />
+			</div>
+		</div>
+		<br />
+		<div class="p-grid p-justify-center">
+			<div class="p-col-3">
+				<p:outputLabel value="Password" />
+				<p:password id="password" value="#{loginBean.password}" />
+			</div>
+		</div>
+		<br />
+		<div class="p-grid p-justify-center">
+			<div class="p-col-3">
+				<p:commandButton styleClass="p-col-fixed" style="width:100px"
+					action="#{loginBean.validateLogin}" value="Login"></p:commandButton>
+				<p:messages id="message" globalOnly="true">
+					<p:autoUpdate></p:autoUpdate>
+				</p:messages>
+			</div>
+		</div>
+	</h:form>
+</h:body>
+</html>
