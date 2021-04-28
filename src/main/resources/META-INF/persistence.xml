@@ -5,6 +5,7 @@
          http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
   <persistence-unit name="RentATree">
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <!-- This property is needed so hibernate can create tables -->
       <property name="hibernate.hbm2ddl.auto" value="update"/>
