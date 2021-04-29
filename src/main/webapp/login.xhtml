@@ -9,30 +9,24 @@
 	<h:outputStylesheet name="css/primeflex/primeflex.css" />
 </h:head>
 <h:body>
-	<h:form>
-		<div class="p-grid p-justify-center">
-			<div class="p-col-3">
-				<p:outputLabel value="Email" />
-				<p:inputText id="email" value="#{loginBean.email}" />
+	<div class="p-d-flex p-jc-center p-ai-center p-text-center" style="height: 100vh; width: 100vw;">
+		<h:form>
+				<p:outputLabel value="Email"/>
+			<div class="p-mb-3" style="width: 100%; margin: 3px;">
+				<p:inputText id="email" value="#{loginBean.email}" style="width:500px;"/>
 			</div>
-		</div>
-		<br />
-		<div class="p-grid p-justify-center">
-			<div class="p-col-3">
-				<p:outputLabel value="Password" />
-				<p:password id="password" value="#{loginBean.password}" />
+				<p:outputLabel value="Password"/>
+			<div class="p-mb-3" style="width: 100%; margin: 3px;">
+				<p:password id="password" value="#{loginBean.password}" style="width:500px;"/>
 			</div>
-		</div>
-		<br />
-		<div class="p-grid p-justify-center">
-			<div class="p-col-3">
-				<p:commandButton styleClass="p-col-fixed" style="width:100px"
+			<div class="p-mt-3">
+				<p:commandButton styleClass="p-col-fixed" style="width:500px"
 					action="#{loginBean.validateLogin}" value="Login"></p:commandButton>
 				<p:messages id="message" globalOnly="true">
 					<p:autoUpdate></p:autoUpdate>
 				</p:messages>
 			</div>
-		</div>
-	</h:form>
+		</h:form>
+	</div>
 </h:body>
 </html>
