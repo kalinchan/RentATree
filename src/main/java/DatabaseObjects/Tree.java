@@ -18,7 +18,8 @@ public class Tree {
     private String description;
     private String Supplier;
     private int Stock;
-    private boolean Available;
+    @Enumerated(EnumType.STRING)
+    private TreeStock Available;
     private int Deposit;
 
     @ManyToOne(targetEntity = Material.class)
@@ -31,7 +32,7 @@ public class Tree {
     @NotNull
     private Type type;
 
-    public Tree(int treeID, int typeID, int materialID, int height, String description, String supplier, int stock, boolean available, int deposit) {
+    public Tree(int treeID, int typeID, int materialID, int height, String description, String supplier, int stock, TreeStock available, int deposit) {
         TreeID = treeID;
         Height = height;
         this.description = description;
@@ -102,11 +103,11 @@ public class Tree {
         Stock = stock;
     }
 
-    public boolean isAvailable() {
+    public TreeStock getAvailable() {
         return Available;
     }
 
-    public void setAvailable(boolean available) {
+    public void setAvailable(TreeStock available) {
         Available = available;
     }
 
@@ -116,6 +117,18 @@ public class Tree {
 
     public void setDeposit(int deposit) {
         Deposit = deposit;
+    }
+
+    public String getTypeName(){
+        return type.getName();
+    }
+
+    public String getMaterialName(){
+        return material.getName();
+    }
+
+    public Double getMaterialDailyPrice(){
+        return material.getDailyPrice();
     }
 
     @Override
