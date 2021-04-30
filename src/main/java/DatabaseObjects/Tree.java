@@ -1,7 +1,10 @@
 package DatabaseObjects;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.DefaultValue;
 
 @Entity
 @Table(name = "Tree")

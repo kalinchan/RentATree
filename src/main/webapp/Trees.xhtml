@@ -33,18 +33,19 @@
                                 <h:outputText value="#{tree.deposit}" styleClass="tree-deposit" style="font-weight: bold">
                                     <f:convertNumber currencySymbol="£" type="currency"/>
                                 </h:outputText>
-                            <div>
-                                <h:outputText value="#{tree.materialDailyPrice}" styleClass="tree-price" style="font-weight: bold">
-                                    <f:convertNumber currencySymbol="£" type="currency"/>
-                                </h:outputText>
-                                <h:outputText value=" per day" style="font-weight: bold"></h:outputText>
-                            </div>
-                            <div class="tree-grid-item-bottom" align="right">
-                                <p:commandButton type="button" value="Add To Cart"
-                                                 icon="pi pi-shopping-cart"
-                                                 disabled="#{tree.available == 'OUTOFSTOCK'}">
-                                </p:commandButton>
-                            </div>
+                                <div>
+                                    <h:outputText value="#{tree.materialDailyPrice}" styleClass="tree-price" style="font-weight: bold">
+                                        <f:convertNumber currencySymbol="£" type="currency"/>
+                                    </h:outputText>
+                                    <h:outputText value=" per day" style="font-weight: bold"></h:outputText>
+                                </div>
+                                <div class="tree-grid-item-bottom" align="right">
+                                    <p:commandButton value="Add To Cart"
+                                                     icon="pi pi-shopping-cart"
+                                                     disabled="#{tree.available == 'OUTOFSTOCK'}"
+                                                     action="#{cartBean.addTreeToCart(tree)}">
+                                    </p:commandButton>
+                                </div>
                             </div>
                         </div>
                     </div>
