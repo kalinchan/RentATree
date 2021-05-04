@@ -33,7 +33,6 @@ public class CartBean implements Serializable {
         new CartBean();
     }
 
-
     public CartBean(){
     }
 
@@ -56,6 +55,10 @@ public class CartBean implements Serializable {
 
     public void setTotal(int total) {
         this.total = total;
+    }
+
+    public int getCartSize(){
+        return contents.size();
     }
 
     public String addTreeToCart(Tree selectedTree){
