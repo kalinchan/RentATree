@@ -12,11 +12,18 @@ import java.util.List;
 @Dependent
 public class TreeDAO implements Serializable {
 
-    public List<Tree> getAllTrees(){
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RentATree");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+	public List<Tree> getAllTrees() {
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RentATree");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        return (entityManager.createQuery("SELECT t FROM Tree t", Tree.class).getResultList());
-    }
+		return (entityManager.createQuery("SELECT t FROM Tree t", Tree.class).getResultList());
+	}
+
+	public List<Tree> searchTrees(String attribute, String attributeValue) {
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RentATree");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		return (entityManager.createQuery("SELECT t FROM Tree t WHERE t." + attribute + ".name = :value", Tree.class)
+				.setParameter("value", attributeValue).getResultList());
+	}
 
 }
