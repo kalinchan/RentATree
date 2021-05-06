@@ -2,20 +2,15 @@ package beans;
 
 import DatabaseObjects.Tree;
 import dao.TreeDAO;
+import org.primefaces.PrimeFaces;
 
-import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 @Named
@@ -24,6 +19,8 @@ public class CartBean implements Serializable {
 
     private List<Tree> contents = new ArrayList<>();
     private int total;
+    private int discount;
+    private int totalAfterDiscount;
 
     @Inject
     TreeDAO treeDAO;
@@ -38,7 +35,6 @@ public class CartBean implements Serializable {
 
     public CartBean(List<Tree> contents, int total) {
         this.contents = contents;
-        this.total = total;
     }
 
     public List<Tree> getContents() {
@@ -47,14 +43,6 @@ public class CartBean implements Serializable {
 
     public void setContents(List<Tree> contents) {
         this.contents = contents;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
     }
 
     public int getCartSize(){
@@ -67,4 +55,51 @@ public class CartBean implements Serializable {
         return "Trees.jsf";
     }
 
+    public double calculateTotal(){
+        double total = 0;
+        for (Tree tree : contents){
+            total =+ tree.getTotalPrice(tree);
+        }
+        return total;
+    }
+
+    private double calculateDiscount() {
+        double discount = 0;
+        for(int i=1; i>contents.size();i+=2){
+            Tree tree = contents.get(i);
+            discount =+ tree.getTotalPrice(tree)/2;
+        }
+        return discount;
+    }
+
+    private double calculateTotalAfterDiscount(){
+        return calculateTotal()-calculateDiscount();
+    }
+
+    public int getTotal() {
+        calculateTotal();
+        return total;
+    }
+
+    public int getDiscount() {
+        calculateDiscount();
+        return discount;
+    }
+
+    public int getTotalAfterDiscount() {
+        calculateTotalAfterDiscount();
+        return totalAfterDiscount;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    public void setTotalAfterDiscount(int totalAfterDiscount) {
+        this.totalAfterDiscount = totalAfterDiscount;
+    }
 }

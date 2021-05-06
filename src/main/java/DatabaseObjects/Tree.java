@@ -1,10 +1,16 @@
 package DatabaseObjects;
 
-import org.hibernate.annotations.ColumnDefault;
+import beans.CartBean;
+import org.primefaces.PrimeFaces;
 
+import javax.inject.Inject;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.DefaultValue;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Tree")
@@ -24,6 +30,11 @@ public class Tree {
     @Enumerated(EnumType.STRING)
     private TreeStock Available;
     private int Deposit;
+
+    @Transient
+    private static List<Date> range;
+    @Transient
+    private int numberOfDaysBooked;
 
     @ManyToOne(targetEntity = Material.class)
     @JoinColumn(name = "MaterialID", insertable = false, updatable = false)
@@ -150,4 +161,43 @@ public class Tree {
                 ", type=" + type +
                 '}';
     }
+
+    public List<Date> getRange() {
+        return range;
+    }
+
+    public void setRange(List<Date> range) {
+        this.range = range;
+        //When the range is set the number of days booked should be updated
+        numberOfDaysBooked = calculateDaysBooked(range);
+
+    }
+
+    public int getNumberOfDaysBooked() {
+        return numberOfDaysBooked;
+    }
+
+    public void setNumberOfDaysBooked(int numberOfDaysBooked) {
+        this.numberOfDaysBooked = numberOfDaysBooked;
+    }
+
+    public int calculateDaysBooked(List<Date> range){
+        LocalDate start = range.get(0).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate end = range.get(1).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int daysBooked = (int) ChronoUnit.DAYS.between(start,end);
+        if (daysBooked!=0){
+            //+1 To offset the 0 index
+            return daysBooked+1;
+        }
+        return daysBooked;
+    }
+
+    public double getTotalDailyPrice(Tree selectedTree){
+        return (getMaterialDailyPrice()*getNumberOfDaysBooked());
+    }
+
+    public double getTotalPrice(Tree selectedTree){
+        return getTotalDailyPrice(selectedTree)+getDeposit();
+    }
+
 }

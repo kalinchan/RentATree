@@ -11,20 +11,35 @@
 </h:head>
 <h:body>
     <h:form id="cart">
-        <p:dataScroller value="#{cartBean.contents}" var="tree" chunkSize="10">
-            <f:facet name="header">
-                Scroll Down to Load More Products
-            </f:facet>
-            <div class="product">
-                <div class="product-list-item p-p-5">
-                    <p:graphicImage name="#{tree.typeName}.jpg" library="TreeImages"/>
-                    <div class="product-list-detail">
-                        <div class="tree-name">#{tree.typeName}</div>
-                        <div class="tree-description">#{tree.description}</div>
-                    </div>
-                </div>
-            </div>
-        </p:dataScroller>
+        <p:dataTable var="tree" value="#{cartBean.contents}">
+            <p:column headerText="TreeType">
+                <h:outputText value="#{tree.typeName}" />
+            </p:column>
+
+            <p:column headerText="Booking Dates">
+                <p:datePicker selectionMode="range" value="#{tree.range}" required="true" readonlyInput="true"
+                              mindate="#{calendarView.minDate}" maxdate="#{calendarView.maxDate}" onchange="submit()">
+                </p:datePicker>
+            </p:column>
+
+            <p:column headerText="Deposit">
+                <h:outputText value="#{tree.deposit}">
+                    <f:convertNumber currencySymbol="£" type="currency"/>
+                </h:outputText>
+            </p:column>
+
+            <p:column headerText="Price for days">
+                <h:outputText id="dailyPrice" value="#{tree.getTotalDailyPrice(tree)}">
+                    <f:convertNumber currencySymbol="£" type="currency"/>
+                </h:outputText>
+            </p:column>
+
+            <p:column headerText="Total">
+                <h:outputText value="#{tree.getTotalPrice(tree)}">
+                    <f:convertNumber currencySymbol="£" type="currency"/>
+                </h:outputText>
+            </p:column>
+        </p:dataTable>
     </h:form>
 </h:body>
 </html>
