@@ -1,13 +1,12 @@
-package HibernateConfigureDatabase;
+package hibernateTest;
 
-import DatabaseObjects.Tree;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SetupDatabaseTest {
 

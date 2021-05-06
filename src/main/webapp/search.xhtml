@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<div class="p-d-flex p-ai-start p-jc-center p-flex-column p-p-3" style="color:white;">
+				<h:outputLabel value="Tree Attribute" styleClass="p-mb-2"/>
+				<p:selectOneMenu binding="#{searchMenu}"
+					value="#{searchBean.searchAttribute}" required="true" styleClass="p-mb-2">
+					<f:selectItem itemLabel="Select One" itemValue=""
+						noSelectionOption="true" />
+					<f:selectItem itemLabel="Material" itemValue="material" />
+					<f:selectItem itemLabel="Height" itemValue="Height" />
+					<f:selectItem itemLabel="Type" itemValue="type" />
+					<f:selectItem itemLabel="Available" itemValue="Available" />
+					<p:ajax event="change" update="searchValue" />
+				</p:selectOneMenu>
+				<p:inputText id="searchValue" value="#{searchBean.searchValue}" styleClass="p-mb-2">
+					<f:attribute name="searchItem" value="#{searchMenu.value}">
+						<p:autoUpdate></p:autoUpdate>
+					</f:attribute>
+					<f:validator validatorId="searchValidation" />
+				</p:inputText>
+				<p:commandButton value="Search" action="#{searchBean.search}"
+					update=":results">
+				</p:commandButton>
+			</div>
+			<p:growl id="growl">
+				<p:autoUpdate></p:autoUpdate>
+			</p:growl>
+		</h:form>
+		<div class="tree">
+			<h:form id="results">
+				<p:dataView rendered="#{not empty searchBean.trees}" var="tree"
+					value="#{searchBean.trees}" rows="12" paginator="true"
+					rowsPerPageTemplate="6,12,16"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+					<p:dataViewGridItem>
+						<div class="tree-grid-item card">
+							<div class="tree-grid-item-top">
+								<div>
+									<i class="pi pi-tag tree-type-icon" /> <span class="tree-type">#{tree.typeName}</span>
+								</div>
+								<span
+									class="tree-badge status-#{tree.available.name().toLowerCase()}">#{tree.available.text}</span>
+							</div>
+							<div class="tree-grid-item-content">
+								<p:graphicImage name="#{tree.typeName}.jpg" library="TreeImages" />
+								<div class="tree-description">#{tree.description}</div>
+								<div class="tree-material">#{tree.materialName}</div>
+								<div class="tree-height">#{tree.height}ft</div>
+								<div class="tree-deposit">Deposit £#{tree.deposit}</div>
+							</div>
+							<div class="tree-grid-item-bottom">
+								<h:outputText value="#{tree.materialDailyPrice}"
+									styleClass="tree-price">
+									<f:convertNumber currencySymbol="£" type="currency" />
+								</h:outputText>
+								<p:commandButton type="button" value="Add To Cart"
+									icon="pi pi-shopping-cart"
+									disabled="#{tree.available == 'OUTOFSTOCK'}">
+								</p:commandButton>
+							</div>
+						</div>
+					</p:dataViewGridItem>
+					<p:dataViewListItem>
+						<div class="tree-list-item">
+							<p:graphicImage name="#{tree.typeName}.jpg" library="TreeImages" />
+							<div class="tree-list-detail">
+								<div class="tree-description">#{tree.description}</div>
+								<div class="tree-material">#{tree.materialName}</div>
+								<div class="tree-height">#{tree.height}ft</div>
+								<i class="pi pi-tag tree-type-icon" /> <span class="tree-type">#{tree.typeName}</span>
+							</div>
+							<div class="tree-list-action">
+								<h:outputText value="#{tree.deposit}" styleClass="tree-deposit">
+									<f:convertNumber currencySymbol="£" type="currency" />
+								</h:outputText>
+								<h:outputText value="#{tree.materialDailyPrice}"
+									styleClass="tree-price">
+									<f:convertNumber currencySymbol="£" type="currency" />
+								</h:outputText>
+								<p:commandButton type="button" value="Add To Cart"
+									icon="pi pi-shopping-cart"
+									disabled="#{tree.available == 'OUTOFSTOCK'}">
+								</p:commandButton>
+								<span
+									class="tree-badge status-#{tree.available.name().toLowerCase()}">#{tree.available.text}</span>
+							</div>
+						</div>
+					</p:dataViewListItem>
+				</p:dataView>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
