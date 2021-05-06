@@ -30,12 +30,26 @@ public class SearchValidation implements Validator<Object> {
 			}
 		}
 
-		if (searchItem.equals("height")) {
+		if (searchItem.equals("Height")) {
 			if (!validateValue.matches("[0-9]+")) {
 				throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Search term can only contain numbers", "Numbers only"));
 			}
 		}
+		
+		if (searchItem.equals("Available")) {
+			if (isStringBoolean(validateValue) == false) {
+				throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Boolean value only", "Boolean only"));
+			}
+		}
 	}
-
+	
+	
+	private boolean isStringBoolean(String bool) {
+		if(bool.equalsIgnoreCase("true") || bool.equalsIgnoreCase("false")) {
+			return true;
+		}
+		return false;
+	}
 }
