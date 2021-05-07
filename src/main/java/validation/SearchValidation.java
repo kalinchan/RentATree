@@ -13,16 +13,10 @@ public class SearchValidation implements Validator<Object> {
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		Object searchItem = component.getAttributes().get("searchItem");
-		String validateValue = value.toString();
-		System.out.println("Validate called");
-		if (searchItem == null) {
-			throw new ValidatorException(
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Search item is null", "Empty Value"));
+		if(searchItem == null || value == null) {
+			return;
 		}
-		if (validateValue.isEmpty())
-			throw new ValidatorException(
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value cannot be empty", "Empty Value"));
-
+		String validateValue = value.toString();
 		if (searchItem.equals("material") | searchItem.equals("type")) {
 			if (!validateValue.matches("[a-zA-Z]+")) {
 				throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
