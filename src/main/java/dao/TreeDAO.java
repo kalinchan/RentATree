@@ -3,6 +3,7 @@ package dao;
 import DatabaseObjects.Tree;
 
 import javax.enterprise.context.Dependent;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -10,6 +11,7 @@ import javax.persistence.Query;
 import java.io.Serializable;
 import java.util.List;
 
+@Named
 @Dependent
 public class TreeDAO implements Serializable {
 

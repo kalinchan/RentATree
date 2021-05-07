@@ -6,11 +6,14 @@ import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.control.RequestContextController;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 @Named
@@ -18,9 +21,9 @@ import java.util.List;
 public class CartBean implements Serializable {
 
     private List<Tree> contents = new ArrayList<>();
-    private int total;
-    private int discount;
-    private int totalAfterDiscount;
+    private double total = 0;
+    private double discount = 0;
+    private double totalAfterDiscount = 0;
 
     @Inject
     TreeDAO treeDAO;
@@ -50,24 +53,28 @@ public class CartBean implements Serializable {
     }
 
     public String addTreeToCart(Tree selectedTree){
-        Tree tree = treeDAO.getTreeByID(selectedTree.getTreeID());
-        contents.add(selectedTree);
+        if(!contents.stream().anyMatch(tree -> tree.getTreeID()==selectedTree.getTreeID())){
+            contents.add(selectedTree);
+        }
         return "Trees.jsf";
     }
 
+    public void removeTreeFromCart(Tree selectedTree){
+        Logger log = Logger.getLogger(String.valueOf(this.getClass()));
+        contents.removeIf(tree -> tree.getTreeID() == selectedTree.getTreeID());
+    }
+
     public double calculateTotal(){
-        double total = 0;
+        total = 0;
         for (Tree tree : contents){
-            total =+ tree.getTotalPrice(tree);
+            total = total + tree.getTotalPrice(tree);
         }
         return total;
     }
 
     private double calculateDiscount() {
-        double discount = 0;
-        for(int i=1; i>contents.size();i+=2){
-            Tree tree = contents.get(i);
-            discount =+ tree.getTotalPrice(tree)/2;
+        for(Tree tree : contents){
+
         }
         return discount;
     }
@@ -76,17 +83,17 @@ public class CartBean implements Serializable {
         return calculateTotal()-calculateDiscount();
     }
 
-    public int getTotal() {
+    public double getTotal() {
         calculateTotal();
         return total;
     }
 
-    public int getDiscount() {
+    public double getDiscount() {
         calculateDiscount();
         return discount;
     }
 
-    public int getTotalAfterDiscount() {
+    public double getTotalAfterDiscount() {
         calculateTotalAfterDiscount();
         return totalAfterDiscount;
     }
