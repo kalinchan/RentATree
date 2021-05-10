@@ -2,17 +2,14 @@ package beans;
 
 import DatabaseObjects.Tree;
 import dao.TreeDAO;
-import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.context.control.RequestContextController;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -24,6 +21,7 @@ public class CartBean implements Serializable {
     private double total = 0;
     private double discount = 0;
     private double totalAfterDiscount = 0;
+    private int quantityOrdered;
 
     @Inject
     TreeDAO treeDAO;
@@ -64,38 +62,31 @@ public class CartBean implements Serializable {
         contents.removeIf(tree -> tree.getTreeID() == selectedTree.getTreeID());
     }
 
-    public double calculateTotal(){
-        total = 0;
-        for (Tree tree : contents){
-            total = total + tree.getTotalPrice(tree);
-        }
-        return total;
-    }
-
-    private double calculateDiscount() {
-        for(Tree tree : contents){
-
-        }
-        return discount;
-    }
-
-    private double calculateTotalAfterDiscount(){
-        return calculateTotal()-calculateDiscount();
-    }
 
     public double getTotal() {
-        calculateTotal();
+        total = 0;
+        for (Tree tree : contents){
+            total = total + (tree.getTotalPrice(tree));
+        }
         return total;
     }
 
     public double getDiscount() {
-        calculateDiscount();
+        discount=0;
+        int counter = 1;
+        for(Tree tree : contents){
+            for(int i = 1; i<=tree.getQuantityOrdered();i++){
+                if(counter%2==0){
+                    discount = discount + ((tree.getTotalDailyPrice(tree)+tree.getDeposit())/2);
+                }
+                counter++;
+            }
+        }
         return discount;
     }
 
     public double getTotalAfterDiscount() {
-        calculateTotalAfterDiscount();
-        return totalAfterDiscount;
+        return total-discount;
     }
 
     public void setTotal(int total) {
@@ -108,5 +99,9 @@ public class CartBean implements Serializable {
 
     public void setTotalAfterDiscount(int totalAfterDiscount) {
         this.totalAfterDiscount = totalAfterDiscount;
+    }
+
+    public int getQuantityOrdered() {
+        return quantityOrdered;
     }
 }

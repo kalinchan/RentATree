@@ -1,9 +1,5 @@
 package DatabaseObjects;
 
-import beans.CartBean;
-import org.primefaces.PrimeFaces;
-
-import javax.inject.Inject;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -35,6 +31,8 @@ public class Tree {
     private static List<Date> range;
     @Transient
     private int numberOfDaysBooked;
+    @Transient
+    private int quantityOrdered = 1;
 
     @ManyToOne(targetEntity = Material.class)
     @JoinColumn(name = "MaterialID", insertable = false, updatable = false)
@@ -197,7 +195,14 @@ public class Tree {
     }
 
     public double getTotalPrice(Tree selectedTree){
-        return getTotalDailyPrice(selectedTree)+getDeposit();
+        return (getTotalDailyPrice(selectedTree)+getDeposit())*selectedTree.getQuantityOrdered();
     }
 
+    public int getQuantityOrdered() {
+        return quantityOrdered;
+    }
+
+    public void setQuantityOrdered(int quantityOrdered) {
+        this.quantityOrdered = quantityOrdered;
+    }
 }
