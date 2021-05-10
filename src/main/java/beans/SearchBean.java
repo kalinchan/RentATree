@@ -1,14 +1,13 @@
 package beans;
 
-import java.io.Serializable;
-import java.util.List;
+import DatabaseObjects.Tree;
+import dao.TreeDAO;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import DatabaseObjects.Tree;
-import dao.TreeDAO;
+import java.io.Serializable;
+import java.util.List;
 
 @Named
 @ViewScoped
