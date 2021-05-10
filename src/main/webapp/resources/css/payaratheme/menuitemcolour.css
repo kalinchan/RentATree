@@ -90,3 +90,34 @@ body .ui-dataview.ui-dataview-list .ui-dataview-row {
 body .ui-dataview .ui-dataview-content {
 	color: white;
 }
+
+.flex-outer li{
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 10px;
+}
+
+.flex-outer > li > .ui-outputlabel{
+	flex: 1 0 120px;
+	max-width: 250px;
+}
+
+h2{
+	color: white;
+	text-align: center;
+}
+
+.ui-outputlabel{
+	color: white;
+}
+
+.flex-outer li .ui-button {
+	width: 100px;
+}
+
+body .ui-panel .ui-panel-content{
+	background: none;
+	border: none;
+}
