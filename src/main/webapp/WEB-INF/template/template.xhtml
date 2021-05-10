@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet name="css/primeflex/primeflex.css" />
+</h:head>
+<h:body style="margin: 0; border-radius:0; background:#002C3E">
+	<p:growl id="growl">
+		<p:autoUpdate></p:autoUpdate>
+	</p:growl>
+	<h:outputStylesheet name="css/payaratheme/menuitemcolour.css" />
+	<div id="header">
+		<ui:include src="./header.xhtml"></ui:include>
+	</div>
+	<div id="content">
+		<ui:insert name="content"></ui:insert>
+	</div>
+</h:body>
+</html>

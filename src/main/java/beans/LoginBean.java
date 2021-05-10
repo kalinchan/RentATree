@@ -19,7 +19,7 @@ public class LoginBean implements Serializable {
 
 	private String email;
 	private String password;
-	
+
 	@Inject
 	LoginDAO loginDAO;
 
@@ -46,18 +46,21 @@ public class LoginBean implements Serializable {
 			HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext()
 					.getSession(false);
 			session.setAttribute("email", email);
-			return "home";
+			return "index";
 		}
 
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_WARN, "Incorrect Email or Password", "Try again"));
+		email=null;
+		password=null;
 		return "null";
 	}
-	
+
 	public String logout() {
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext()
-				.getSession(false);
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		session.invalidate();
+		email=null;
+		password=null;
 		return "login";
 	}
 }
