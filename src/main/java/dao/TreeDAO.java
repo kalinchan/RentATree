@@ -1,20 +1,13 @@
 package dao;
 
-import java.io.Serializable;
-import java.util.List;
-import java.io.Serializable;
-import java.util.List;
+import DatabaseObjects.Tree;
+import DatabaseObjects.TreeStock;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-
-import DatabaseObjects.Tree;
-import DatabaseObjects.TreeStock;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Named
 @Dependent
@@ -27,13 +20,6 @@ public class TreeDAO implements Serializable {
     public List<Tree> getAllTrees(){
         return (entityManager.createQuery("SELECT t FROM Tree t", Tree.class).getResultList());
     }
-
-	public List<Tree> getAllTrees() {
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RentATree");
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-		return (entityManager.createQuery("SELECT t FROM Tree t", Tree.class).getResultList());
-	}
 
 	public List<Tree> searchTrees(String attribute, String attributeValue) {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RentATree");
