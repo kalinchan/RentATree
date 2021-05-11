@@ -1,26 +1,25 @@
 package dao;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.enterprise.context.Dependent;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
-
 import DatabaseObjects.Tree;
 import DatabaseObjects.TreeStock;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+
+@Named
 @Dependent
 public class TreeDAO implements Serializable {
 
-	public List<Tree> getAllTrees() {
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RentATree");
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-		return (entityManager.createQuery("SELECT t FROM Tree t", Tree.class).getResultList());
-	}
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RentATree");
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+    public List<Tree> getAllTrees(){
+        return (entityManager.createQuery("SELECT t FROM Tree t", Tree.class).getResultList());
+    }
 
 	public List<Tree> searchTrees(String attribute, String attributeValue) {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RentATree");
@@ -101,5 +100,11 @@ public class TreeDAO implements Serializable {
 			return TreeStock.INSTOCK;
 		return TreeStock.OUTOFSTOCK;
 	}
+
+    public Tree getTreeByID(int id){
+        Query query = entityManager.createQuery("SELECT t FROM Tree t WHERE t.TreeID=:id", Tree.class);
+        query.setParameter("id", id);
+        return (Tree) query.getSingleResult();
+    }
 
 }

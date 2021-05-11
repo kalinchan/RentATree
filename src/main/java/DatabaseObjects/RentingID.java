@@ -1,6 +1,5 @@
 package DatabaseObjects;
 
-import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 

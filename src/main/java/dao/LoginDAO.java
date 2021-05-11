@@ -1,16 +1,15 @@
 package dao;
 
+import org.jboss.logging.Logger;
+
+import javax.annotation.Resource;
+import javax.enterprise.context.Dependent;
+import javax.sql.DataSource;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.annotation.Resource;
-import javax.enterprise.context.Dependent;
-import javax.sql.DataSource;
-
-import org.jboss.logging.Logger;
 
 @Dependent
 public class LoginDAO implements Serializable {

@@ -3,7 +3,6 @@ package DatabaseObjects;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
-import java.util.Currency;
 
 @Entity
 @Table(name = "Renting")

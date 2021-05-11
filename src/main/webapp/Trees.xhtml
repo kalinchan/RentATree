@@ -3,7 +3,6 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
@@ -33,22 +32,32 @@
                                 <h:outputText value="#{tree.deposit}" styleClass="tree-deposit" style="font-weight: bold">
                                     <f:convertNumber currencySymbol="£" type="currency"/>
                                 </h:outputText>
-                            <div>
-                                <h:outputText value="#{tree.materialDailyPrice}" styleClass="tree-price" style="font-weight: bold">
-                                    <f:convertNumber currencySymbol="£" type="currency"/>
-                                </h:outputText>
-                                <h:outputText value=" per day" style="font-weight: bold"></h:outputText>
-                            </div>
-                            <div class="tree-grid-item-bottom" align="right">
-                                <p:commandButton type="button" value="Add To Cart"
-                                                 icon="pi pi-shopping-cart"
-                                                 disabled="#{tree.available == 'OUTOFSTOCK'}">
-                                </p:commandButton>
-                            </div>
+                                <div>
+                                    <h:outputText value="#{tree.materialDailyPrice}" styleClass="tree-price" style="font-weight: bold">
+                                        <f:convertNumber currencySymbol="£" type="currency"/>
+                                    </h:outputText>
+                                    <h:outputText value=" per day" style="font-weight: bold"></h:outputText>
+                                </div>
+                                <div class="tree-grid-item-bottom" align="right">
+                                    <p:commandButton value="Add To Cart"
+                                                     icon="pi pi-shopping-cart"
+                                                     disabled="#{tree.available == 'OUTOFSTOCK'}"
+                                                     update="@form:cart"
+                                                     action="#{cartBean.addTreeToCart(tree)}">
+                                    </p:commandButton>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </p:carousel>
+                <div class="tree-grid-item-bottom" align="right">
+                    <p:commandButton value="Cart"
+                                     icon="pi pi-shopping-cart"
+                                     id="cart"
+                                     disabled="#{cartBean.cartSize == 0}"
+                                     action="Cart.jsf?faces-redirect=true">
+                    </p:commandButton>
+                </div>
             </div>
     </h:form>
 </h:body>
