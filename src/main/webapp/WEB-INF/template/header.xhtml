@@ -1,31 +1,33 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
-	<div class="topbar">
-		<h:form>
-			<div class="p-d-flex" style="background-color: #002332;">
-				<div>
-					<p:menubar
-						style="border: none; background-color: #002332; border-radius:0;">
-						<p:menuitem icon="pi pi-home" action="index"></p:menuitem>
-						<p:menuitem value="Search" icon="pi pi-search" action="search"/>
-					</p:menubar>
-				</div>
-				<div class="p-ml-auto">
-					<p:menubar
-						style="border: none; background-color: #002332; border-radius:0;">
-						<p:menuitem value="Sign In" icon="pi pi-fw pi-sign-in"
-							rendered="#{empty loginBean.email}" action="login" />
-						<p:submenu
-							label="#{loginBean.email == null ? 'Sign In' : loginBean.email}"
-							rendered="#{not empty loginBean.email}" style="width:200px;">
-							<p:menuitem value="Logout" action="#{loginBean.logout}"
-								icon="pi pi-fw pi-sign-out" />
-						</p:submenu>
-					</p:menubar>
-				</div>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form>
+		<div class="p-d-flex" style="background-color: #002332;">
+			<div>
+				<p:menubar
+					style="border: none; background-color: #002332; border-radius:0;">
+					<p:menuitem icon="pi pi-home" action="index"></p:menuitem>
+					<p:menuitem value="Search" icon="pi pi-search" action="search" />
+					<p:menuitem value="Trees" action="Trees" />
+				</p:menubar>
 			</div>
-		</h:form>
-	</div>
+			<div class="p-ml-auto">
+				<p:menubar
+					style="border: none; background-color: #002332; border-radius:0;">
+					<p:menuitem icon="pi pi-fw pi-shopping-cart" action="Cart" />
+					<p:menuitem value="Admin" icon="pi pi-fw pi-cog"
+						rendered="#{loginBean.isAdmin()}" action="null" />
+					<p:menuitem value="Sign In" icon="pi pi-fw pi-sign-in"
+						rendered="#{empty loginBean.email}" action="login" />
+					<p:submenu
+						label="#{loginBean.email == null ? 'Sign In' : loginBean.email}"
+						rendered="#{not empty loginBean.email}" style="width:200px;">
+						<p:menuitem value="Logout" action="#{loginBean.logout}"
+							icon="pi pi-fw pi-sign-out" />
+					</p:submenu>
+				</p:menubar>
+			</div>
+		</div>
+	</h:form>
 </ui:composition>

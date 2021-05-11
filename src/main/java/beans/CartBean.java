@@ -59,6 +59,7 @@ public class CartBean implements Serializable {
 
     public void removeTreeFromCart(Tree selectedTree){
         Logger log = Logger.getLogger(String.valueOf(this.getClass()));
+        System.out.println("Remove tree called");
         contents.removeIf(tree -> tree.getTreeID() == selectedTree.getTreeID());
     }
 

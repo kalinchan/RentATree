@@ -28,7 +28,7 @@ public class Tree {
     private int Deposit;
 
     @Transient
-    private static List<Date> range;
+    private List<Date> range;
     @Transient
     private int numberOfDaysBooked;
     @Transient
