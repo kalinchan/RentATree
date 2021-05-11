@@ -63,4 +63,8 @@ public class LoginBean implements Serializable {
 		password=null;
 		return "login";
 	}
+	
+	public boolean isAdmin() {
+		return loginDAO.isAdmin(email, password);
+	}
 }
