@@ -121,3 +121,42 @@ body .ui-panel .ui-panel-content{
 	background: none;
 	border: none;
 }
+
+body .ui-carousel .ui-carousel-header{
+	background: none;
+	color: white;
+	border: none;
+}
+
+body .ui-carousel .ui-carousel-viewport{
+	color: white;
+}
+
+body .ui-carousel .ui-carousel-viewport{
+	background: #002c3e;
+}
+body .ui-carousel .ui-carousel-viewport .ui-carousel-item{
+	border: none;
+}
+body .ui-carousel .ui-carousel-viewport{
+	border: none;
+}
+
+body .ui-button.ui-state-active, body .ui-button.ui-state-down{
+	background: none;
+	border-color: none;
+}
+body .ui-datatable thead th{
+	background: none;
+	border: none;
+	color: white;
+}
+
+body .ui-datatable .ui-datatable-data > tr{
+	background: none;
+	color: white;
+}
+.white-text{
+	color: white;
+	background: none;
+}}

@@ -1,79 +1,79 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-<h:head>
-    <h:outputStylesheet name="css/primeflex/primeflex.css" />
-</h:head>
-<h:body>
-    <h:form id="cart">
-        <p:dataTable id="treeTable" var="tree" value="#{cartBean.contents}" rowKey="#{treeDAO.getTreeId(tree)}" widgetVar="datatableVar">
-            <p:column headerText="Tree">
-                <h:outputText value="#{tree.height}ft #{tree.typeName}"/>
-            </p:column>
-
-            <p:column headerText="Booking Dates">
-                <p:datePicker id="datePicker" selectionMode="range" value="#{tree.range}" required="true" readonlyInput="true"
-                              mindate="#{calendarView.minDate}" maxdate="#{calendarView.maxDate}">
-                    <p:ajax process="@this" update="@parent:dailyPrice" partialSubmit="true" immediate="true"/>
-                    <p:ajax process="@this" update="@parent:total" partialSubmit="true" immediate="true"/>
-                    <p:ajax process="@form" update="@form:priceBreakdown" partialSubmit="true" immediate="true" render=":cart:priceBreakdown"/>
-                </p:datePicker>
-            </p:column>
-
-            <p:column headerText="Deposit">
-                <h:outputText value="#{tree.deposit}">
-                    <f:convertNumber currencySymbol="£" type="currency"/>
-                </h:outputText>
-            </p:column>
-
-            <p:column id="daysPrice" headerText="Price for selected days">
-                <h:outputText id="dailyPrice" value="#{tree.getTotalDailyPrice(tree)}">
-                    <f:convertNumber currencySymbol="£" type="currency"/>
-                </h:outputText>
-            </p:column>
-
-            <p:column id="quantity" headerText="Quantity">
-                <p:inputNumber value="#{tree.quantityOrdered}" minValue="1" decimalPlaces="0" maxValue="#{tree.stock}" required="true">
-                    <p:ajax event="keyup"/>
-                    <p:ajax process="@this" update="@parent:total" partialSubmit="true" immediate="true" render=":cart:total"/>
-                    <p:ajax process="@form" update="@form:priceBreakdown" partialSubmit="true" immediate="true" render=":cart:priceBreakdown"/>
-                </p:inputNumber>
-            </p:column>
-
-            <p:column id="totalPrice" headerText="Total">
-                <h:outputText id="total" value="#{tree.getTotalPrice(tree)}">
-                    <f:convertNumber currencySymbol="£" type="currency"/>
-                </h:outputText>
-            </p:column>
-
-            <p:column headerText="Remove">
-                <p:commandButton value="Remove"
-                                 icon="pi pi-trash"
-                                 update="cart"
-                                 action="#{cartBean.removeTreeFromCart(tree)}">
-                </p:commandButton>
-            </p:column>
-        </p:dataTable>
-
-        <h:panelGroup id="priceBreakdown">
-            <h:outputText value="Total: " align="right"/>
-            <h:outputText id="totalBeforeDiscounts" value="#{cartBean.total}" align="right">
-                <f:convertNumber currencySymbol="£" type="currency"/>
-            </h:outputText> <br></br>
-            <h:outputText value="Discount: -" align="right"/>
-            <h:outputText id="discounts" value="#{cartBean.discount}" align="right">
-                <f:convertNumber currencySymbol="£" type="currency"/>
-            </h:outputText> <br></br>
-            <h:outputText value="Grand Total: " align="right"/>
-            <h:outputText id="totalAfterDiscounts" value="#{cartBean.totalAfterDiscount}" align="right">
-                <f:convertNumber currencySymbol="£" type="currency"/>
-            </h:outputText>
-        </h:panelGroup>
-
-    </h:form>
-</h:body>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="content">
+		<h:form id="cart">
+			<p:dataTable id="treeTable" var="tree" value="#{cartBean.contents}"
+				rowKey="#{treeDAO.getTreeId(tree)}" widgetVar="datatableVar">
+				<p:column headerText="Tree">
+					<h:outputText value="#{tree.height}ft #{tree.typeName}" />
+				</p:column>
+				<p:column headerText="Booking Dates">
+					<p:datePicker id="datePicker" selectionMode="range"
+						value="#{tree.range}" required="true" readonlyInput="true"
+						mindate="#{calendarView.minDate}"
+						maxdate="#{calendarView.maxDate}">
+						<p:ajax update="@parent:dailyPrice" />
+						<p:ajax update="@parent:total" />
+						<p:ajax update="@form:priceBreakdown"
+							render=":cart:priceBreakdown" />
+					</p:datePicker>
+				</p:column>
+				<p:column headerText="Deposit">
+					<h:outputText value="#{tree.deposit}">
+						<f:convertNumber currencySymbol="£" type="currency" />
+					</h:outputText>
+				</p:column>
+				<p:column id="daysPrice" headerText="Price for selected days">
+					<h:outputText id="dailyPrice"
+						value="#{tree.getTotalDailyPrice(tree)}">
+						<f:convertNumber currencySymbol="£" type="currency" />
+					</h:outputText>
+				</p:column>
+				<p:column id="quantity" headerText="Quantity">
+					<p:inputNumber value="#{tree.quantityOrdered}" minValue="1"
+						decimalPlaces="0" maxValue="#{tree.stock}" required="true">
+						<p:ajax update="@parent:total" render=":cart:total" />
+						<p:ajax update="@form:priceBreakdown"
+							render=":cart:priceBreakdown" />
+					</p:inputNumber>
+				</p:column>
+				<p:column id="totalPrice" headerText="Total">
+					<h:outputText id="total" value="#{tree.getTotalPrice(tree)}">
+						<f:convertNumber currencySymbol="£" type="currency" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Remove">
+					<p:commandButton value="Remove" icon="pi pi-trash" update="cart"
+						action="#{cartBean.removeTreeFromCart(tree)}" resetValues="false"
+						immediate="true" process="@this">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			<h:panelGroup id="priceBreakdown">
+				<div class="p-p-3 white-text">
+					<h:outputText value="Total: " align="right" />
+					<h:outputText id="totalBeforeDiscounts" value="#{cartBean.total}"
+						align="right">
+						<f:convertNumber currencySymbol="£" type="currency" />
+					</h:outputText>
+					<br></br>
+					<h:outputText value="Discount: -" align="right" />
+					<h:outputText id="discounts" value="#{cartBean.discount}"
+						align="right">
+						<f:convertNumber currencySymbol="£" type="currency" />
+					</h:outputText>
+					<br></br>
+					<h:outputText value="Grand Total: " align="right" />
+					<h:outputText id="totalAfterDiscounts"
+						value="#{cartBean.totalAfterDiscount}" align="right">
+						<f:convertNumber currencySymbol="£" type="currency" />
+					</h:outputText>
+				</div>
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+</ui:composition>
