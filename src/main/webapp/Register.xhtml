@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+   <h:outputStylesheet name="css/primeflex/primeflex.css" />
+</h:head>
+<h:body>
+   <h:outputStylesheet name="css/payaratheme/menuitemcolour.css" />
+   <div class="p-d-flex p-jc-center p-ai-center p-text-center"
+        style="height: 100vh; width: 100vw; background: #002332;">
+      <h:form>
+         <p:outputLabel value="Forename" style="color: white;" />
+         <div class="p-mb-3" style="width: 100%; margin: 3px;">
+            <p:inputText id="Forename" value="#{customerBean.forename}" placeholder="Forename"
+                         style="width:500px;" />
+         </div>
+         <p:outputLabel value="Surname" style="color: white;"/>
+         <div class="p-mb-3" style="width: 100%; margin: 3px;">
+            <p:inputText id="Surname" value="#{customerBean.surname}" placeholder="Surname"
+                        style="width:500px;" />
+         </div>
+
+         <!--Left as inputText for house numbers including letters eg. 29a -->
+         <p:outputLabel value="HouseNo" style="color: white;" />
+         <div class="p-mb-3" style="width: 100%; margin: 3px;">
+            <p:inputText id="HouseNo" value="#{customerBean.houseNo}" placeholder="House Number"
+                         style="width:500px;" />
+         </div>
+         <p:outputLabel value="StreetName" style="color: white;"/>
+         <div class="p-mb-3" style="width: 100%; margin: 3px;">
+            <p:inputText id="StreetName" value="#{customerBean.streetName}" placeholder="Street Name"
+                         style="width:500px;" />
+         </div>
+
+         <p:outputLabel value="City" style="color: white;" />
+         <div class="p-mb-3" style="width: 100%; margin: 3px;">
+            <p:inputText id="City" value="#{customerBean.city}" placeholder="City"
+                           style="width:500px;" />
+         </div>
+         <p:outputLabel value="PhoneNo" style="color: white;"/>
+         <div class="p-mb-3" style="width: 100%; margin: 3px;">
+            <p:inputMask id="PhoneNo" value="#{customerBean.phoneNo}"  mask="99999999999" placeholder="Phone Number"
+                         style="width:500px;" />
+         </div>
+
+         <p:outputLabel value="DoB" style="color: white;" />
+         <div class="p-mb-3" style="width: 100%; margin: 3px;">
+            <p:inputMask id="DoB" value="#{customerBean.doB}"  mask="99/99/9999" placeholder="Date Of Birth (DD/MM/YYYY)"
+                         style="width:500px;">
+               <f:attribute value="#{customerBean.doB}" name="sample"/>
+               <f:convertDateTime pattern="dd/MM/yyyy" type="date" for="DoB" />
+            </p:inputMask>
+         </div>
+
+         <p:outputLabel value="Email" style="color: white;"/>
+         <div class="p-mb-3" style="width: 100%; margin: 3px;">
+            <p:inputText id="Email" value="#{customerBean.email}" placeholder="Email"
+                         validatorMessage="Please enter a valid email" style="width:500px;">
+            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+            </p:inputText>
+         </div>
+         <p:outputLabel value="Password" style="color: white;"/>
+         <div class="p-mb-3" style="width: 100%; margin: 3px;">
+            <p:password id="Password" value="#{customerBean.password}" placeholder="Password"
+                           style="width:500px;" />
+         </div>
+         <div class="p-mt-3">
+            <p:commandButton styleClass="p-col-fixed" style="width:500px"
+                             action="#{customerBean.validateEntry}" value="Register" process="@this @form"
+                             partialSubmit="true" ajax="true" update="@form">
+            </p:commandButton>
+            <div>
+               <p:message for="Email" display="Text" />
+               <p:message for="DoB" display="Text" />
+            </div>
+
+            <p:messages id="message" globalOnly="true">
+               <p:autoUpdate></p:autoUpdate>
+            </p:messages>
+         </div>
+      </h:form>
+   </div>
+</h:body>
+</html>
