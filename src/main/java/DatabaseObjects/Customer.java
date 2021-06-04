@@ -1,11 +1,13 @@
 package DatabaseObjects;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 @Entity
-@Table(name = "Customer", uniqueConstraints = {@UniqueConstraint(columnNames = {"Email", "Password"})})
+@Table(name = "Customer", uniqueConstraints = {@UniqueConstraint(columnNames = {"Email"})})
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,12 +24,14 @@ public class Customer {
     private String Email;
     @NotNull
     private String Password;
+    @ColumnDefault("False")
     private Boolean IsAdmin;
+    @ColumnDefault("0")
     private int SuccessCount;
+    @ColumnDefault("0")
     private int FailCount;
 
-    public Customer(int customerID, String forename, String surname, int houseNo, String streetName, String city, String phoneNo, Date doB, String email, String password, Boolean isAdmin, int successCount, int failCount) {
-        CustomerID = customerID;
+    public Customer(String forename, String surname, int houseNo, String streetName, String city, String phoneNo, Date doB, String email, String password) {
         Forename = forename;
         Surname = surname;
         HouseNo = houseNo;
@@ -37,9 +41,6 @@ public class Customer {
         DoB = doB;
         Email = email;
         Password = password;
-        IsAdmin = isAdmin;
-        SuccessCount = successCount;
-        FailCount = failCount;
     }
 
     public Customer() {
