@@ -18,6 +18,7 @@ public class LoginBean implements Serializable {
 
 	private String email;
 	private String password;
+	private boolean loggedIn;
 
 	@Inject
 	LoginDAO loginDAO;
@@ -45,6 +46,8 @@ public class LoginBean implements Serializable {
 			HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext()
 					.getSession(false);
 			session.setAttribute("email", email);
+			session.setAttribute("admin", isAdmin());
+			loggedIn=true;
 			return "index";
 		}
 
@@ -52,6 +55,7 @@ public class LoginBean implements Serializable {
 				new FacesMessage(FacesMessage.SEVERITY_WARN, "Incorrect Email or Password", "Try again"));
 		email=null;
 		password=null;
+		loggedIn=false;
 		return "null";
 	}
 
@@ -60,10 +64,19 @@ public class LoginBean implements Serializable {
 		session.invalidate();
 		email=null;
 		password=null;
+		loggedIn=false;
 		return "login";
 	}
 	
 	public boolean isAdmin() {
 		return loginDAO.isAdmin(email, password);
 	}
+	
+	public String returnIndexIfLoggedIn() {
+		if(loggedIn) {
+			return "index";
+		}
+		return null;
+	}
+	
 }

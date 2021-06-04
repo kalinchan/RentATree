@@ -13,11 +13,13 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Date;
 import java.util.stream.Stream;
+import java.util.List;
 
 @Named
 @SessionScoped
@@ -34,6 +36,7 @@ public class CustomerBean implements Serializable {
     private Date DoB;
     private String email;
     private String password;
+    private List<Customer> customers;
 
     @Inject
     CustomerDAO customerDAO;
@@ -43,6 +46,18 @@ public class CustomerBean implements Serializable {
 
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RentATree");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+    @PostConstruct
+    public void init() {
+	    customers = customerDAO.getAllCustomers();
+    }
+    public List<Customer> getCustomers() {
+	    return customers;
+    }
+	
+    public void setCustomers(List<Customer> customers) {
+	    this.customers = customers;
+    }
 
     public String getForename() {
         return forename;

@@ -10,6 +10,7 @@
 					<p:menuitem icon="pi pi-home" action="index"></p:menuitem>
 					<p:menuitem value="Search" icon="pi pi-search" action="search" />
 					<p:menuitem value="Trees" action="Trees" />
+					<p:menuitem value="Send Mail" action="#{mailHandler.sendMail()}"/>
 					<p:menuitem value="Register" action="Register" />
 				</p:menubar>
 			</div>
@@ -18,7 +19,7 @@
 					style="border: none; background-color: #002332; border-radius:0;">
 					<p:menuitem icon="pi pi-fw pi-shopping-cart" action="Cart" />
 					<p:menuitem value="Admin" icon="pi pi-fw pi-cog"
-						rendered="#{loginBean.isAdmin()}" action="null" />
+						rendered="#{loginBean.isAdmin()}" action="admin" />
 					<p:menuitem value="Sign In" icon="pi pi-fw pi-sign-in"
 						rendered="#{empty loginBean.email}" action="login" />
 					<p:submenu

@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="content">
+	<p:accordionPanel multiple="true">
+		<p:tab title="Trees">
+			<h:form>
+				<p:dataTable var="tree" value="#{treeBean.trees}"
+					rowStyleClass="#{tree.treeID mod 2 == 0 ? 'colouredRow' : null}">
+					<p:column headerText="ID">
+						<h:outputText value="#{tree.treeID}"></h:outputText>
+					</p:column>
+					<p:column headerText="TYPE">
+						<h:outputText value="#{tree.typeName}"></h:outputText>
+					</p:column>
+					<p:column headerText="MATERIAL">
+						<h:outputText value="#{tree.materialName}"></h:outputText>
+					</p:column>
+					<p:column headerText="HEIGHT">
+						<h:outputText value="#{tree.height}"></h:outputText>
+					</p:column>
+					<p:column headerText="STOCK">
+						<p:inputNumber value="#{tree.stock}"></p:inputNumber>
+					</p:column>
+					<p:column>
+						<p:commandButton value="Update"
+							action="#{treeDAO.setTreeStock(tree.treeID, tree.stock)}"
+							update="@form"></p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:tab>
+		<p:tab title="Customer">
+				<h:form>
+					<p:dataTable var="customer" value="#{customerBean.getCustomers()}">
+						<p:column headerText="ID">
+							<h:outputText value="#{customer.customerID}"></h:outputText>
+						</p:column>
+						<p:column headerText="FORENAME">
+							<h:outputText value="#{customer.forename}"></h:outputText>
+						</p:column>
+						<p:column headerText="SURNAME">
+							<h:outputText value="#{customer.surname}"></h:outputText>
+						</p:column>
+						<p:column headerText="HIT">
+							<p:inputNumber value="#{customer.successCount}"></p:inputNumber>
+						</p:column>
+						<p:column headerText="MISS">
+							<p:inputNumber value="#{customer.failCount}"></p:inputNumber>
+						</p:column>
+						<p:column>
+							<p:commandButton value="Update"
+								action="#{customerDAO.setHitAndMiss(customer.customerID, customer.successCount, customer.failCount)}"
+								update="@form"></p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</p:tab>
+	</p:accordionPanel>
+	</ui:define>
+</ui:composition>
