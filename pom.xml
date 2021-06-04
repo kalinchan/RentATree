@@ -52,11 +52,6 @@
 			<version>5.8.0-M1</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>eclipselink</artifactId>
-			<version>3.0.1</version>
-		</dependency>
 	</dependencies>
 
 	<build>

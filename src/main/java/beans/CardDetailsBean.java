@@ -1,22 +1,13 @@
 package beans;
 
-import DatabaseObjects.CardDetails;
-import dao.CardDetailsDAO;
-import enums.Country;
-import utils.ConvertDate;
+import java.io.Serializable;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.IOException;
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
+
+import enums.Country;
 
 @Named
 @ViewScoped
@@ -34,28 +25,15 @@ public class CardDetailsBean  implements Serializable{
 	private String city;
 	private Country country;
 	private boolean firstPage;
-	private int cardNum;
-	private int ccv;
+	private String cardNum;
+	private String ccv;
 	private Date expiry;
-
-	private LocalDate minDate;
-
-	@Inject
-	CardDetailsDAO cardDetailsDAO;
-
-	@Inject
-	CustomerBean customerBean;
-
+	private Date minDate;
 
 	@PostConstruct
 	public void init() {
 		firstPage = true;
-		minDate = LocalDate.now();
-
-		//As the user can't input these details, we need to retrieve it from when they previously did
-		this.firstName = customerBean.getForename();
-		this.lastName = customerBean.getSurname();
-		this.email = customerBean.getEmail();
+		minDate = new Date();
 	}
 	
 	public String getEmail() {
@@ -133,19 +111,19 @@ public class CardDetailsBean  implements Serializable{
 	}
 
 	
-	public int getCardNum() {
+	public String getCardNum() {
 		return cardNum;
 	}
 
-	public void setCardNum(int cardNum) {
+	public void setCardNum(String cardNum) {
 		this.cardNum = cardNum;
 	}
 
-	public int getCcv() {
+	public String getCcv() {
 		return ccv;
 	}
 
-	public void setCcv(int ccv) {
+	public void setCcv(String ccv) {
 		this.ccv = ccv;
 	}
 
@@ -157,28 +135,19 @@ public class CardDetailsBean  implements Serializable{
 		this.expiry = expiry;
 	}
 
-	public LocalDate getMinDate() {
+	public Date getMinDate() {
 		return minDate;
 	}
 
-	public void setMinDate(LocalDate minDate) {
+	public void setMinDate(Date minDate) {
 		this.minDate = minDate;
 	}
 
 	public String toString() {
 		return String.format("Email: %s FName: %s LName: %s Address Line 1: %s Address Line 2: %s Postcode: %s City: %s Country: %s", email, firstName, lastName, addressLine1, addressLine2, postcode, city, country.getText());
 	}
-
-	public void submit() throws IOException {
-		CardDetails cardDetails = new CardDetails(email, firstName, lastName, addressLine1, addressLine2, postcode,
-				city, country, cardNum, ccv, ConvertDate.utilDateToSqlDate(expiry));
-
-		cardDetailsDAO.saveCardDetails(cardDetails);
-
-		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-		context.redirect("http://localhost:8080/index.jsf");
-
-		//The session is invalidated to remove the lingering CustomerBean with those details
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+	
+	public void print() {
+		System.out.println(this);
 	}
 }
