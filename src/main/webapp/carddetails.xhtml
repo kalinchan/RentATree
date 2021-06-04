@@ -7,105 +7,91 @@
 	<ui:define name="content">
 		<p:importConstants type="enums.Country" />
 		<h:form>
-			<p:panel rendered="#{cardDetailsBean.firstPage}">
-				<h2>Customer Information</h2>
-				<ul class="flex-outer">
-					<li>
-						<p:outputLabel for="email" value="Email" />
-						<p:inputText value="#{cardDetailsBean.email}" placeholder="Email"
-							id="email" required="true">
-							<f:validateRegex
-								pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-						</p:inputText>
-					</li>
-					<li>
-						<p:outputLabel for="firstName" value="First Name" />
-						<p:inputText value="#{cardDetailsBean.firstName}"
-							placeholder="First Name" id="firstName" required="true" />
-					</li>
-					<li>
-						<p:outputLabel for="lastName" value="Last Name" />
-						<p:inputText value="#{cardDetailsBean.lastName}"
-							placeholder="Last Name" id="lastName" required="true" />
-					</li>
-					<li>
-						<p:outputLabel for="addrLine1" value="Address Line 1" />
-						<p:inputText value="#{cardDetailsBean.addressLine1}"
-							placeholder="Address Line 1" id="addrLine1" required="true" />
-					</li>
-					<li>
-						<p:outputLabel for="addrLine2" value="Address Line 2" />
-						<p:inputText value="#{cardDetailsBean.addressLine2}"
-							placeholder="Address Line 2" id="addrLine2" />
-					</li>
-					<li>
-						<p:outputLabel for="postcode" value="Postcode" />
-						<p:inputText value="#{cardDetailsBean.postcode}"
-							placeholder="Postcode" id="postcode" required="true" />
-					</li>
-					<li>
-						<p:outputLabel for="city" value="City" />
-						<p:inputText value="#{cardDetailsBean.city}" placeholder="City"
-							id="city" required="true" />
-					</li>
-					<li>
-						<p:outputLabel for="countryInput" value="Country" />
-						<p:selectOneMenu id="countryInput"
-							value="#{cardDetailsBean.country}" style="width:215px;" var="c"
-							panelStyle="width:215px;">
-							<f:selectItems value="#{Country}" var="countryItem"
-								itemLabel="#{countryItem.text}" itemValue="#{countryItem}" />
-							<p:column>
-								<f:facet name="header">
-									<h:outputText value="Name" />
+			<div class="card-info">
+				<p:panel rendered="#{cardDetailsBean.firstPage}">
+					<h2>Customer Information</h2>
+					<ul class="flex-outer">
+						<li><p:outputLabel for="email" value="Email" /> <p:inputText
+								value="#{cardDetailsBean.email}" placeholder="Email" id="email"
+								required="true">
+								<f:validateRegex
+									pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							</p:inputText></li>
+						<li><p:outputLabel for="firstName" value="First Name" /> <p:inputText
+								value="#{cardDetailsBean.firstName}" placeholder="First Name"
+								id="firstName" required="true" /></li>
+						<li><p:outputLabel for="lastName" value="Last Name" /> <p:inputText
+								value="#{cardDetailsBean.lastName}" placeholder="Last Name"
+								id="lastName" required="true" /></li>
+						<li><p:outputLabel for="addrLine1" value="Address Line 1" />
+							<p:inputText value="#{cardDetailsBean.addressLine1}"
+								placeholder="Address Line 1" id="addrLine1" required="true" />
+						</li>
+						<li><p:outputLabel for="addrLine2" value="Address Line 2" />
+							<p:inputText value="#{cardDetailsBean.addressLine2}"
+								placeholder="Address Line 2" id="addrLine2" /></li>
+						<li><p:outputLabel for="postcode" value="Postcode" /> <p:inputText
+								value="#{cardDetailsBean.postcode}" placeholder="Postcode"
+								id="postcode" required="true" /></li>
+						<li><p:outputLabel for="city" value="City" /> <p:inputText
+								value="#{cardDetailsBean.city}" placeholder="City" id="city"
+								required="true" /></li>
+						<li><p:outputLabel for="countryInput" value="Country" /> <p:selectOneMenu
+								id="countryInput" value="#{cardDetailsBean.country}"
+								style="width:215px;" var="c" panelStyle="width:215px;">
+								<f:selectItems value="#{Country}" var="countryItem"
+									itemLabel="#{countryItem.text}" itemValue="#{countryItem}" />
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Name" />
+									</f:facet>
+									<h:outputText value="#{c.text}" />
+								</p:column>
+								<f:facet name="footer">
+									<h:outputText value="#{Country.values().size()} countries"
+										style="font-weight:bold;" styleClass="p-py-1 p-d-block" />
 								</f:facet>
-								<h:outputText value="#{c.text}" />
-							</p:column>
-							<f:facet name="footer">
-								<h:outputText value="#{Country.values().size()} countries"
-									style="font-weight:bold;" styleClass="p-py-1 p-d-block" />
-							</f:facet>
-						</p:selectOneMenu>
-					</li>
-					<li>
-						<p:commandButton value="Next"
-							action="#{cardDetailsBean.setFirstPage(false)}" update="@form"></p:commandButton>
-					</li>
-				</ul>
-			</p:panel>
-			<p:panel rendered="#{not cardDetailsBean.firstPage}">
-				<h2>Card Information</h2>
-				<ul class="flex-outer">
-					<li>
-						<p:outputLabel for="cnum" value="Card Number" />
-						<p:inputText value="#{cardDetailsBean.cardNum}"
-							placeholder="Card Number" id="cnum" required="true">
-							<f:validateRegex
-								pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$"></f:validateRegex>
-						</p:inputText>
-					</li>
-					<li>
-						<p:outputLabel for="ccv" value="CCV" />
-						<p:inputText value="#{cardDetailsBean.ccv}" placeholder="CCV"
-							id="ccv" required="true">
-							<f:validateRegex pattern="\d{3}" />
-						</p:inputText>
-					</li>
-					<li>
-						<p:outputLabel for="expiry" value="Expiry Date" />
-						<p:datePicker id="expiry" value="#{cardDetailsBean.expiry}"
-							view="month" pattern="MM/yyyy" yearNavigator="true"
-							yearRange="2021:2041" mindate="#{cardDetailsBean.minDate}" required="true"/>
-					</li>
-					<li>
-						<p:commandButton value="Back"
-							action="#{cardDetailsBean.setFirstPage(true)}" update="@form"
-							style="margin-right:270px;"></p:commandButton>
-						<p:commandButton value="Submit"
-							action="#{cardDetailsBean.print()}" update="@form"></p:commandButton>
-					</li>
-				</ul>
-			</p:panel>
+							</p:selectOneMenu></li>
+						<li><p:commandButton value="Next"
+								action="#{cardDetailsBean.setFirstPage(false)}" update="@form"></p:commandButton>
+						</li>
+					</ul>
+				</p:panel>
+				<p:panel rendered="#{not cardDetailsBean.firstPage}">
+					<h2>Card Information</h2>
+					<ul class="flex-outer">
+						<li><p:outputLabel for="cnum" value="Card Number" /> <p:inputText
+								value="#{cardDetailsBean.cardNum}" placeholder="Card Number"
+								id="cnum" required="true">
+								<f:validateRegex
+									pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$"></f:validateRegex>
+							</p:inputText></li>
+						<li><p:outputLabel for="ccv" value="CCV" /> <p:inputText
+								value="#{cardDetailsBean.ccv}" placeholder="CCV" id="ccv"
+								required="true">
+								<f:validateRegex pattern="\d{3}" />
+							</p:inputText></li>
+						<li><p:outputLabel for="expiry" value="Expiry Date" /> <p:datePicker
+								id="expiry" value="#{cardDetailsBean.expiry}" view="month"
+								pattern="MM/yyyy" yearNavigator="true" yearRange="2021:2041"
+								mindate="#{cardDetailsBean.minDate}" required="true" /></li>
+						<li><p:commandButton value="Back"
+								action="#{cardDetailsBean.setFirstPage(true)}" update="@form"
+								style="margin-right:270px;"></p:commandButton> <p:commandButton
+								value="Submit" action="#{cardDetailsBean.print()}"
+								update="@form"></p:commandButton></li>
+					</ul>
+				</p:panel>
+			</div>
+			<div class="basket-info">
+			hi
+				<p:dataTable value="#{cartBean.contents}" var="item"
+					scrollable="true" scrollHeight="250">
+					<p:graphicImage name="#{item.typeName}.jpg" library="TreeImages"
+						width="50px" height="50px" />
+					<p:outputLabel value="Total: #{cartBean.totalAfterDiscount}"></p:outputLabel>
+				</p:dataTable>
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>
