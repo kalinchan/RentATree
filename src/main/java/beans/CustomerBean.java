@@ -8,6 +8,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -22,7 +23,7 @@ import java.util.stream.Stream;
 import java.util.List;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class CustomerBean implements Serializable {
 
     private static final long serialVersionUID = 6998508471291131930L;
@@ -152,7 +153,7 @@ public class CustomerBean implements Serializable {
                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Thank you for registering with RentATree!", "Try again"));
 
                 ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-                context.redirect("http://localhost:8080/carddetails.jsf");
+                context.redirect("http://localhost:8080/index.jsf");
 
             }
         }

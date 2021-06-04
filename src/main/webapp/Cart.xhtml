@@ -74,7 +74,10 @@
 					</h:outputText>
 				</div>
 			</h:panelGroup>
-			<p:commandButton value="Checkout" action="carddetails"></p:commandButton>
+			<p:commandButton value="Checkout" icon="pi pi-credit-card"
+							 disabled="#{loginBean.loggedIn == false and cartBean.cartSize>0}"
+							 update="@form:cart" action="carddetails">
+			</p:commandButton>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -1,12 +1,11 @@
 package beans;
 
 import DatabaseObjects.CardDetails;
-import dao.CardDetailsDAO;
+import email.MailHandler;
 import enums.Country;
 import utils.ConvertDate;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -15,7 +14,6 @@ import javax.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 @Named
@@ -41,21 +39,12 @@ public class CardDetailsBean  implements Serializable{
 	private LocalDate minDate;
 
 	@Inject
-	CardDetailsDAO cardDetailsDAO;
-
-	@Inject
-	CustomerBean customerBean;
-
+	MailHandler mailHandler;
 
 	@PostConstruct
 	public void init() {
 		firstPage = true;
 		minDate = LocalDate.now();
-
-		//As the user can't input these details, we need to retrieve it from when they previously did
-		this.firstName = customerBean.getForename();
-		this.lastName = customerBean.getSurname();
-		this.email = customerBean.getEmail();
 	}
 	
 	public String getEmail() {
@@ -170,15 +159,14 @@ public class CardDetailsBean  implements Serializable{
 	}
 
 	public void submit() throws IOException {
-		CardDetails cardDetails = new CardDetails(email, firstName, lastName, addressLine1, addressLine2, postcode,
-				city, country, cardNum, ccv, ConvertDate.utilDateToSqlDate(expiry));
+		//The specification never said to do anything with the card details.
+		//CardDetails cardDetails = new CardDetails(email, firstName, lastName, addressLine1, addressLine2, postcode,
+		//		city, country, cardNum, ccv, ConvertDate.utilDateToSqlDate(expiry));
 
-		cardDetailsDAO.saveCardDetails(cardDetails);
+		//cardDetailsDAO.saveCardDetails(cardDetails);
+		mailHandler.sendMail(email);
 
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 		context.redirect("http://localhost:8080/index.jsf");
-
-		//The session is invalidated to remove the lingering CustomerBean with those details
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 	}
 }
