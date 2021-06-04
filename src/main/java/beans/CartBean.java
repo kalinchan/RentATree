@@ -16,9 +16,6 @@ import java.util.logging.Logger;
 @SessionScoped
 public class CartBean implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private List<Tree> contents = new ArrayList<>();
 	private double total = 0;

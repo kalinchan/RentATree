@@ -45,7 +45,7 @@ public class CustomerDAO implements Serializable {
         }
         return null;
     }
-    public List<Customer> getAllCustomers{
+    public List<Customer> getAllCustomers(){
     	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RentATree");
 	EntityManager entityManager = entityManagerFactory.createEntityManager();
 	List<Customer> results = entityManager.createQuery("SELECT c FROM Customer c", Customer.class).getResultList();
