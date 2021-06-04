@@ -1,3 +1,7 @@
+.ui-widget-content.ui-datatable-odd.colouredRow {
+	background: #002939;
+}
+
 body .ui-menu.ui-menubar>.ui-menu-list>.ui-menuitem>.ui-menuitem-link>span
 	{
 	color: #F0981B;
@@ -91,7 +95,7 @@ body .ui-dataview .ui-dataview-content {
 	color: white;
 }
 
-.flex-outer li{
+.flex-outer li {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -99,17 +103,17 @@ body .ui-dataview .ui-dataview-content {
 	margin-bottom: 10px;
 }
 
-.flex-outer > li > .ui-outputlabel{
+.flex-outer>li>.ui-outputlabel {
 	flex: 1 0 120px;
 	max-width: 250px;
 }
 
-h2{
+h2 {
 	color: white;
 	text-align: center;
 }
 
-.ui-outputlabel{
+.ui-outputlabel {
 	color: white;
 }
 
@@ -117,46 +121,113 @@ h2{
 	width: 100px;
 }
 
-body .ui-panel .ui-panel-content{
+body .ui-panel .ui-panel-content {
 	background: none;
 	border: none;
 }
 
-body .ui-carousel .ui-carousel-header{
+body .ui-carousel .ui-carousel-header {
 	background: none;
 	color: white;
 	border: none;
 }
 
-body .ui-carousel .ui-carousel-viewport{
+body .ui-carousel .ui-carousel-viewport {
 	color: white;
 }
 
-body .ui-carousel .ui-carousel-viewport{
+body .ui-carousel .ui-carousel-viewport {
 	background: #002c3e;
 }
-body .ui-carousel .ui-carousel-viewport .ui-carousel-item{
-	border: none;
-}
-body .ui-carousel .ui-carousel-viewport{
+
+body .ui-carousel .ui-carousel-viewport .ui-carousel-item {
 	border: none;
 }
 
-body .ui-button.ui-state-active, body .ui-button.ui-state-down{
+body .ui-carousel .ui-carousel-viewport {
+	border: none;
+}
+
+body .ui-button.ui-state-active, body .ui-button.ui-state-down {
 	background: none;
 	border-color: none;
 }
-body .ui-datatable thead th{
+
+body .ui-datatable thead th {
 	background: none;
 	border: none;
 	color: white;
 }
 
-body .ui-datatable .ui-datatable-data > tr{
+body .ui-datatable .ui-datatable-data>tr {
 	background: none;
 	color: white;
 }
-.white-text{
+
+.white-text {
 	color: white;
 	background: none;
+}
+
+.card-info {
+	float: left;
+	width: 75%;
+	height: 100vh;
+}
+
+.basket-info {
+	float: right;
+	width: 25%;
+	height: 100vh;
+	position: relative;
+}
+
+.basket-info>.image {
+	float: left;
+	width: 25%;
+	position: absolute;
+}
+
+.basket-info>.info {
+	float: right;
+	width: 75%;
+	position: absolute;
+}
+
+#j_idt22\:j_idt23 {
+	padding: 0rem 1rem;
+}
+
+#j_idt22\:j_idt23_head {
+	background: #002939;
+}
+
+#j_idt36\:j_idt37 {
+	padding: 0rem 1rem;
+}
+body .ui-accordion .ui-accordion-header.ui-state-active{
+	background: none;
+	color: white;
+	}
+body .ui-accordion .ui-accordion-content{
+	border: none;
+	background: none;
+}
+body .ui-accordion .ui-accordion-header:first-child{
+	border: none;
+}
+body .ui-accordion .ui-accordion-header.ui-state-active:hover{
+	background: none;
+	color:white;
+}
+body .ui-accordion .ui-accordion-header{
+	background: none;
+	color:white;
+}
+body .ui-accordion .ui-accordion-header{
+	border: none;
+}
+body .ui-accordion .ui-accordion-header.ui-state-hover{
+	background: none;
+	color: white;
 }

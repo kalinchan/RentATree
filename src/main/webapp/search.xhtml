@@ -53,8 +53,8 @@
 					</p:inputText>
 				</div>
 			</div>
-			<p:commandButton styleClass="p-ml-3" value="Search" action="#{searchBean.search}"
-				update=":results">
+			<p:commandButton styleClass="p-ml-3" value="Search"
+				action="#{searchBean.search}" update=":results">
 			</p:commandButton>
 		</h:form>
 		<div class="tree">
@@ -109,9 +109,10 @@
 									styleClass="tree-price">
 									<f:convertNumber currencySymbol="£" type="currency" />
 								</h:outputText>
-								<p:commandButton type="button" value="Add To Cart"
+								<p:commandButton value="Add To Cart"
 									icon="pi pi-shopping-cart"
-									disabled="#{tree.available == 'OUTOFSTOCK'}">
+									disabled="#{tree.available == 'OUTOFSTOCK'}"
+									action="#{cartBean.addTreeToCart(tree)}">
 								</p:commandButton>
 								<span
 									class="tree-badge status-#{tree.available.name().toLowerCase()}">#{tree.available.text}</span>

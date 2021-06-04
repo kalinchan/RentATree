@@ -4,6 +4,7 @@ import DatabaseObjects.Tree;
 import dao.TreeDAO;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,10 +12,12 @@ import java.io.Serializable;
 import java.util.List;
 
 @Named
-@ViewScoped
+@RequestScoped
 public class TreeBean implements Serializable {
 
-    @Inject
+	private static final long serialVersionUID = 1L;
+
+	@Inject
     TreeDAO treeDAO;
 
     private List<Tree> trees;
