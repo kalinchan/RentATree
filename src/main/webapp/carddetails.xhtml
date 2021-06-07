@@ -12,14 +12,15 @@
 					<h2>Billing Information</h2>
 					<ul class="flex-outer">
 						<li><p:outputLabel for="email" value="Email" /> <p:inputText
-								value="#{customerBean.email}" placeholder="#{customerBean.email}" disabled="true" id="email"
+								value="#{cardDetailsBean.email}" placeholder="Email" id="email"
 								required="true">
+							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 							</p:inputText></li>
 						<li><p:outputLabel for="firstName" value="First Name" /> <p:inputText
-								value="#{customerBean.forename}" disabled="true" placeholder="#{customerBean.forename}"
+								value="#{cardDetailsBean.firstName}" placeholder="First Name"
 								id="firstName" required="true" /></li>
 						<li><p:outputLabel for="lastName" value="Last Name" /> <p:inputText
-								value="#{customerBean.surname}" disabled="true" placeholder="#{customerBean.surname}"
+								value="#{cardDetailsBean.lastName}"  placeholder="Last Name"
 								id="lastName" required="true" /></li>
 						<li><p:outputLabel for="addrLine1" value="Address Line 1" />
 							<p:inputText value="#{cardDetailsBean.addressLine1}"

@@ -39,6 +39,14 @@ public class LoginBean implements Serializable {
 		this.password = password;
 	}
 
+	public boolean isLoggedIn() {
+		return loggedIn;
+	}
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
+	}
+
 	public String validateLogin() {
 		boolean valid = loginDAO.validate(email, password);
 

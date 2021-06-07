@@ -160,6 +160,10 @@ public class Tree {
                 '}';
     }
 
+    public String formattedMailToString(){
+        return Height+"ft "+material.getName()+" "+type.getName()+" Tree x"+quantityOrdered+"\n"+description;
+    }
+
     public List<Date> getRange() {
         return range;
     }
