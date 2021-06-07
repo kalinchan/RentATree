@@ -1,19 +1,21 @@
 package beans;
 
 import DatabaseObjects.CardDetails;
+import email.MailContents;
 import email.MailHandler;
 import enums.Country;
 import utils.ConvertDate;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 
 @Named
@@ -40,6 +42,9 @@ public class CardDetailsBean  implements Serializable{
 
 	@Inject
 	MailHandler mailHandler;
+
+	@Inject
+	MailContents mailContents;
 
 	@PostConstruct
 	public void init() {
@@ -164,7 +169,7 @@ public class CardDetailsBean  implements Serializable{
 		//		city, country, cardNum, ccv, ConvertDate.utilDateToSqlDate(expiry));
 
 		//cardDetailsDAO.saveCardDetails(cardDetails);
-		mailHandler.sendMail(email);
+		mailHandler.sendConfirmationMail(email);
 
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 		context.redirect("http://localhost:8080/index.jsf");

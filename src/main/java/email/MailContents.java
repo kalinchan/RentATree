@@ -26,9 +26,12 @@ public class MailContents implements Serializable {
     }
 
     private String promotion(){
-        return 	"You saved £"+
-                decimalFormat.format(cartBean.getDiscount())+
-                " today with our buy one get one half price offer!";
+        if(cartBean.getDiscount()>0){
+            return 	"You saved £"+
+                    decimalFormat.format(cartBean.getDiscount())+
+                    " today with our buy one get one half price offer!";
+        }
+        return "Unfortunately you didn't make use of our buy one get one half price offer today.";
     }
 
     private String shippedTo(){
@@ -54,6 +57,6 @@ public class MailContents implements Serializable {
                 "\n\n" + cartContents() +
                 "\n\n" + totalSpent() +
                 "\n\n" + promotion() +
-                "\n\n Thank you for shopping with RentATree";
+                "\n\nThank you for shopping with RentATree";
     }
 }
