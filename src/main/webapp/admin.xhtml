@@ -53,7 +53,7 @@
 						</p:column>
 						<p:column>
 							<p:commandButton value="Update"
-								action="#{customerDAO.setHitAndMiss(customer.customerID, customer.successCount, customer.failCount)}"
+								action="#{customerDAO.setHitAndMiss(customer.customerID, customer.successCount, customer.failCount, customer.forename, customer.email)}"
 								update="@form"></p:commandButton>
 						</p:column>
 					</p:dataTable>

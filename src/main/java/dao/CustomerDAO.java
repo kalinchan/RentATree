@@ -1,22 +1,30 @@
 package dao;
 
-import DatabaseObjects.Customer;
+import java.io.Serializable;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.List;
 
+import DatabaseObjects.Customer;
+import email.WarningMessage;
+
+@Named
 @Dependent
 public class CustomerDAO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Inject
+    WarningMessage warningMessage;
+    
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RentATree");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -53,7 +61,7 @@ public class CustomerDAO implements Serializable {
 	return results;
     }
 
-    public void setHitAndMiss(int id, int hit, int miss) {
+    public void setHitAndMiss(int id, int hit, int miss, String forename, String email) {
 	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RentATree");
 	EntityManager entityManager = entityManagerFactory.createEntityManager();
 	entityManager.getTransaction().begin();
@@ -61,6 +69,9 @@ public class CustomerDAO implements Serializable {
 	query.setParameter("id", id);
 	query.setParameter("hit", hit);
 	query.setParameter("miss", miss);
+	if(miss == 2) {
+		warningMessage.sendWarning(email, forename);
+	}
 	query.executeUpdate();
 	entityManager.getTransaction().commit();
 	entityManager.close();

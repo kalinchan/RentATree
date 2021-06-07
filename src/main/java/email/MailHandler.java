@@ -50,5 +50,22 @@ public class MailHandler implements Serializable {
 
 
 
-
+	public void sendMail(String recipientEmail, String subject, String text) {
+		try {
+			System.out.println("Trying to send mail");
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("RentATree@gmail.com"));
+			message.setRecipients(RecipientType.TO, InternetAddress.parse(recipientEmail));
+			message.setSubject(subject);
+			message.setText(text);
+			
+			Transport t = session.getTransport();
+			//t.connect();
+			t.connect("RentATreePayara@gmail.com", "LYfwAn7an7qcwZE");
+			t.sendMessage(message, message.getAllRecipients());
+			System.out.println("Mail sent to "+recipientEmail);
+		}catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
